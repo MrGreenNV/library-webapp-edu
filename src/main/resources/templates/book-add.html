@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<div class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="jumbotron text-center rounded col-md-12 align-self-center pt-5">
+                <div class="justify-content-center">
+                    <h1>Add Book</h1>
+                </div>
+                <form th:action="@{/books/add}"
+                      th:method="post"
+                      th:object="${bookModel}"
+                      class="m-md-auto w-50 pb-3">
+
+                    <div class="mb-3">
+                        <label class="form-label" for="author"><h5>All available companies</h5></label>
+                        <select multiple="multiple" class="form-control text-center"
+                                id="author" name="name" th:field="*{nameAuthor}">
+                            <option th:each="c : ${availableAuthor}"
+                                    th:value="${c.name}"
+                                    th:text="${c.name}">Author name
+                            </option>
+                        </select>
+                        <small th:if="${#fields.hasErrors('nameAuthor')}" th:errors="*{nameAuthor}"
+                               class="text-danger">Error
+                            message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Title</label>
+                        <input th:field="*{title}"
+                               th:errorclass="is-invalid"
+                               type="text" class="form-control text-center"
+                               id="title" aria-describedby="title" name="title"/>
+                        <small th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger">Error
+                            message</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="yearOfPublished">Year of published</label>
+                        <input th:field="*{yearOfPublished}"
+                               th:errorclass="is-invalid"
+                               type="text" class="form-control text-center"
+                               id="yearOfPublished" aria-describedby="yearOfPublished" name="yearOfPublished"/>
+                        <small th:if="${#fields.hasErrors('yearOfPublished')}" th:errors="*{yearOfPublished}" class="text-danger">Error
+                            message</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary">Add Book</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<footer th:replace="fragments/footer"></footer>
+</html>

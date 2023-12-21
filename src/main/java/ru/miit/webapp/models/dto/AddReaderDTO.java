@@ -3,12 +3,12 @@ package ru.miit.webapp.models.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -26,7 +26,7 @@ public class AddReaderDTO {
     @Email(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+.+.[A-Za-z]{2,4}$", message = "Email должен быть валиден.")
     private String email;
 
-    @NotEmpty(message = "Поле не должно быть пустым.")
+    @NotNull(message = "Поле не должно быть пустым.")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
 }

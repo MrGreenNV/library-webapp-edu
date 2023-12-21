@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <main class="jumbotron text-center rounded col-md-12 align-self-center pt-5">
+                <div class="justify-content-center">
+                    <h1>Reader Details</h1>
+                    <br>
+                    <br>
+                </div>
+                <div class="row bg-light rounded">
+                    <div class="col-md-6"><img src="/pic/reader_1.png" height="350px"></div>
+                    <div class="col-md-6 pt-3">
+                        <h2>Reader</h2>
+                        <h4 th:text="'Name: ' + ${readerDetails.name}"></h4>
+                        <h4 th:text="'Email: ' + ${readerDetails.email}"></h4>
+                        <h4 th:text="'Date of Birth: ' + ${readerDetails.dateOfBirth}"></h4>
+                        <br>
+                        <h4 th:text="'Книги на руках:'"></h4>
+                        <div th:if="${readerDetails.getRentedBooks().isEmpty()}" th:text="${'Все книги возвращены'}"></div>
+                        <div th:if="${!readerDetails.getRentedBooks().isEmpty()}"
+                             th:each="c : ${readerDetails.getRentedBooks()}"
+                             th:value="${c.title}"
+                             th:text="${c.title} + ' - арендована с: ' + ${c.getReceivedIn()}">Title</div>
+                        <br>
+                        <br>
+                        <div class="align-bottom"><a class="btn btn-danger align-bottom"
+                                                     th:href="@{/readers/reader-delete/{reader-name}(reader-name=${readerDetails.name})}">Delete reader</a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"></footer>
+</body>
+</html>

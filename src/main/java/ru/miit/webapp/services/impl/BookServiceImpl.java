@@ -51,7 +51,7 @@ public class BookServiceImpl implements BookService {
         ShowBookDetailInfoModelView bookDetailInfoModelView = null;
         if (book != null) {
             bookDetailInfoModelView = mapper.map(book, ShowBookDetailInfoModelView.class);
-            bookDetailInfoModelView.setNameReader(book.getAbonent().getName());
+            bookDetailInfoModelView.setNameReader(book.getAbonent() == null ? null : book.getAbonent().getName());
         }
         return bookDetailInfoModelView;
     }
