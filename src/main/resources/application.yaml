@@ -26,8 +26,8 @@ logging:
         type:
           descriptor: TRACE
     blog: WARN
-
-
-
+#Server port
+server:
+  port: 9090
 
 
