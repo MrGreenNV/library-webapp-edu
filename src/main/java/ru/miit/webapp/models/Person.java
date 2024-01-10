@@ -1,11 +1,14 @@
 package ru.miit.webapp.models;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,5 +22,7 @@ public abstract class Person extends BaseEntity {
     private String email;
     @Column(name = "pass", nullable = false)
     private String password;
+    @ManyToMany
+    private List<Role> roles;
 
 }
