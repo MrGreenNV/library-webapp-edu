@@ -96,6 +96,7 @@ public class Init implements CommandLineRunner {
         readerUser.setPassword(passwordEncoder.encode(defaultPass));
         readerUser.setEmail("vano@example.com");
         readerUser.setRoles(List.of(readerRole));
+        readerUser.setDateOfBirth(LocalDate.now());
 
         readerRepository.save(readerUser);
     }
@@ -112,6 +113,5 @@ public class Init implements CommandLineRunner {
 
         authorRepository.save(author);
     }
-
 
 }
