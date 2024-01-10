@@ -17,4 +17,7 @@ public abstract class Person extends BaseEntity {
     private String name;
     @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "pass", nullable = false)
+    private String password;
+
 }
