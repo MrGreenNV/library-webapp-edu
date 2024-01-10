@@ -30,4 +30,9 @@ logging:
 server:
   port: 5000
 
+#cont
+app:
+  default:
+    pass: secret
+
 
