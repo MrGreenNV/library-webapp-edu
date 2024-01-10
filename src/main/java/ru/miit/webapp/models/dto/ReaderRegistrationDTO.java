@@ -29,4 +29,5 @@ public class ReaderRegistrationDTO {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
     private String password;
+    private String confirmPassword;
 }
