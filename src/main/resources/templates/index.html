@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head"></head>
+<head th:replace="~{fragments/head}"><title>Library</title></head>
 <body class="d-flex flex-column h-100">
-<div th:replace="fragments/navbar">Navbar</div>
+<div th:replace="~{fragments/navbar}">Navbar</div>
 <main class="flex-shrink-0">
     <div class="container">
         <div class="row">
@@ -14,15 +14,15 @@
                 <div><span th:text="'Last update of Database:'"></span>&nbsp;
                     <span th:text="${#dates.createNow()}"></span>
                 </div>
-                </br>
-                </br>
+                <br>
+                <br>
                 <div class="center">
-                    <img src="/pic/library_1.jpg" height="350px">
+                    <img src="/pic/library_1.jpg" height="350px" alt="Изображение библиотеки">
                 </div>
             </div>
         </div>
     </div>
 </main>
-<footer th:replace="fragments/footer"></footer>
+<footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>

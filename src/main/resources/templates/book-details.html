@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head"></head>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"><title>Book Details</title></head>
 <body class="d-flex flex-column h-100">
-<div th:replace="fragments/navbar">Navbar</div>
+<div th:replace="~{fragments/navbar}">Navbar</div>
 <main class="flex-shrink-0">
     <div class="container">
         <div class="row">
@@ -14,20 +14,32 @@
                     <br>
                 </div>
                 <div class="row bg-light rounded">
-                    <div class="col-md-6"><img src="/pic/book_1.png" height="350px"></div>
+                    <div class="col-md-6"><img src="/pic/book_1.png" height="350px" alt="Изображение книги"></div>
                     <div class="col-md-6 pt-3">
                         <h2>Book</h2>
                         <h4 th:text="'Title: ' + ${bookDetails.title}"></h4>
                         <h4 th:text="'Author: ' + ${bookDetails.nameAuthor}"></h4>
-                        <h4 th:text="'Yaer of published: ' + ${bookDetails.yearOfPublished}"></h4>
+                        <h4 th:text="'Year of published: ' + ${bookDetails.yearOfPublished}"></h4>
                         <br>
                         <div th:if="${bookDetails.getNameReader() == null}" th:text="${'Книга свободна'}"></div>
                         <div th:if="${bookDetails.getNameReader() != null}"
+                             sec:authorize="hasAnyAuthority('ADMIN', 'MODERATOR')"
                              th:text="${'Книга находится у: ' + bookDetails.getNameReader() + ' с даты: ' + bookDetails.getReceivedIn()}"></div>
                         <br>
                         <br>
                         <div class="align-bottom"><a class="btn btn-danger align-bottom"
-                                                     th:href="@{/books/book-delete/{book-title}(book-title=${bookDetails.title})}">Delete book</a>
+                                                     th:if="${bookDetails.getNameReader() == #authentication.name}"
+                                                     sec:authorize="hasAnyAuthority('READER')"
+                                                     th:href="@{/books/book-return/{book-id}(book-id=${bookDetails.id})}">Return book</a>
+                        </div>
+                        <div class="align-bottom"><a class="btn btn-danger align-bottom"
+                                                     th:if="${bookDetails.getNameReader() == null}"
+                                                     sec:authorize="hasAnyAuthority('READER')"
+                                                     th:href="@{/books/book-receive/{book-id}(book-id=${bookDetails.id})}">Receive book</a>
+                        </div>
+                        <div class="align-bottom"><a class="btn btn-danger align-bottom"
+                                                     sec:authorize="hasAnyAuthority('ADMIN')"
+                                                     th:href="@{/books/book-delete/{book-id}(book-id=${bookDetails.id})}">Delete book</a>
                         </div>
                     </div>
                 </div>
@@ -35,6 +47,6 @@
         </div>
     </div>
 </main>
-<footer th:replace="fragments/footer"></footer>
+<footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>

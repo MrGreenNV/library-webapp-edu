@@ -1,9 +1,7 @@
 package ru.miit.webapp.services;
 
-import ru.miit.webapp.models.dto.AuthorRegistrationDTO;
-import ru.miit.webapp.models.dto.ReaderRegistrationDTO;
+import ru.miit.webapp.models.dto.UserRegistrationDTO;
 
 public interface AuthService {
-    void registerAuthor(AuthorRegistrationDTO authorRegistrationDTO);
-    void registerReader(ReaderRegistrationDTO readerRegistrationDTO);
+    void register(UserRegistrationDTO registrationDTO);
 }

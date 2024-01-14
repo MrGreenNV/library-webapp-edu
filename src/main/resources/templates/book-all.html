@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head"></head>
+<head th:replace="~{fragments/head}"><title>All Books</title></head>
 <body class="d-flex flex-column h-100">
-<div th:replace="fragments/navbar">Navbar</div>
+<div th:replace="~{fragments/navbar}">Navbar</div>
 <main class="flex-shrink-0">
     <div class="container">
         <div class="row">
@@ -11,16 +11,16 @@
                 <h2 class="text-center text-dark mt-5">All Books</h2>
                 <br>
                 <br>
-                <div th:each="c : ${allBooks}" class="d-flex flex-column bg-text mb-3">
-                    <h2 th:text="'Title: ' + ${c.title}"></h2>
-                    <h4 th:text="'Author: ' + ${c.nameAuthor}"></h4>
-                    <h4><a class="btn-block" th:href="@{/books/book-details/{book-title}(book-title=${c.title})}">Detail
+                <div th:each="book : ${allBooks}" class="d-flex flex-column bg-text mb-3">
+                    <h2 th:text="'Title: ' + ${book.title}"></h2>
+                    <h4 th:text="'Author: ' + ${book.nameAuthor}"></h4>
+                    <h4><a class="btn-block" th:href="@{/books/book-details/{book-id}(book-id=${book.id})}">Detail
                         info</a></h4>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<footer th:replace="fragments/footer"></footer>
+<footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>

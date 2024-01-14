@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head"></head>
+<head th:replace="~{fragments/head}"><title>Book Add</title></head>
 <body class="d-flex flex-column h-100">
-<div th:replace="fragments/navbar">Navbar</div>
+<div th:replace="~{fragments/navbar}">Navbar</div>
 <div class="flex-shrink-0">
     <div class="container">
         <div class="row">
@@ -13,22 +13,18 @@
                 </div>
                 <form th:action="@{/books/add}"
                       th:method="post"
-                      th:object="${bookModel}"
+                      th:object="${addBookDTO}"
                       class="m-md-auto w-50 pb-3">
 
-                    <div class="mb-3">
-                        <label class="form-label" for="author"><h5>All available companies</h5></label>
-                        <select multiple="multiple" class="form-control text-center"
-                                id="author" name="name" th:field="*{nameAuthor}">
-                            <option th:each="c : ${availableAuthor}"
-                                    th:value="${c.name}"
-                                    th:text="${c.name}">Author name
-                            </option>
-                        </select>
-                        <small th:if="${#fields.hasErrors('nameAuthor')}" th:errors="*{nameAuthor}"
-                               class="text-danger">Error
-                            message</small>
-                    </div>
+<!--                    <div class="mb-3">-->
+<!--                        <label class="form-label" for="nameAuthor">Name Author</label>-->
+<!--                        <input th:field="*{nameAuthor}"-->
+<!--                               th:errorclass="is-invalid"-->
+<!--                               type="text" class="form-control text-center"-->
+<!--                               id="nameAuthor" aria-describedby="nameAuthor" name="nameAuthor"/>-->
+<!--                        <small th:if="${#fields.hasErrors('nameAuthor')}" th:errors="*{nameAuthor}" class="text-danger">Error-->
+<!--                            message</small>-->
+<!--                    </div>-->
 
                     <div class="mb-3">
                         <label class="form-label" for="title">Title</label>
@@ -57,5 +53,5 @@
     </div>
 </div>
 </body>
-<footer th:replace="fragments/footer"></footer>
+<footer th:replace="~{fragments/footer}"></footer>
 </html>

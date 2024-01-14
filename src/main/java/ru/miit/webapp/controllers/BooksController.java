@@ -12,39 +12,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.miit.webapp.models.dto.AddBookDTO;
-import ru.miit.webapp.services.AuthorService;
 import ru.miit.webapp.services.BookService;
 
 @Controller
-@RequestMapping("books")
+@RequestMapping("/books")
 @RequiredArgsConstructor
 public class BooksController {
-
     private final BookService bookService;
-    private final AuthorService authorService;
 
-    @GetMapping("/add")
-    public String addBook(Model model) {
-        model.addAttribute("availableAuthor", authorService.allAuthors());
-        return "book-add";
-    }
-
-    @ModelAttribute("bookModel")
-    public AddBookDTO initBook() {
+    @ModelAttribute("addBookDTO")
+    public AddBookDTO initForm() {
         return new AddBookDTO();
     }
 
-    @PostMapping("/add")
-    public String addBook(@Valid AddBookDTO bookModel, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    @GetMapping("/add")
+    public String addBook() {
+        return "book-add";
+    }
 
+    @PostMapping("/add")
+    public String addBook(@Valid AddBookDTO bookModel,
+                          BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("bookModel", bookModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.bookModel",
-                    bindingResult);
+            redirectAttributes.addFlashAttribute("addBookDTO", bookModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addBookDTO", bindingResult);
+
             return "redirect:/books/add";
         }
-        bookService.addBook(bookModel);
 
+        bookService.addBook(bookModel);
         return "redirect:/";
     }
 
@@ -54,17 +51,33 @@ public class BooksController {
         return "book-all";
     }
 
-    @GetMapping("/book-details/{book-title}")
-    public String showBookDetails(@PathVariable("book-title") String title, Model model) {
-        model.addAttribute("bookDetails", bookService.bookDetails(title));
+    @GetMapping("/book-details/{book-id}")
+    public String showBookDetails(@PathVariable("book-id") String id, Model model) {
+        model.addAttribute("bookDetails", bookService.bookDetailsById(id));
 
         return "book-details";
     }
 
-    @GetMapping("/book-delete/{book-title}")
-    public String deleteBook(@PathVariable("book-title") String title) {
-        bookService.removeBook(title);
+    @GetMapping("/book-delete/{book-id}")
+    public String deleteBook(@PathVariable("book-id") String id) {
+        bookService.removeBook(id);
 
-        return "redirect:/books/all";
+        return "redirect:/book/all";
     }
+
+    @GetMapping("/book-receive/{book-id}")
+    public String receiveBook(@PathVariable("book-id") String id) {
+        bookService.receiveBook(id);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/book-return/{book-id}")
+    public String returnBook(@PathVariable("book-id") String id) {
+        bookService.returnBook(id);
+
+        return "redirect:/";
+    }
+
+
 }

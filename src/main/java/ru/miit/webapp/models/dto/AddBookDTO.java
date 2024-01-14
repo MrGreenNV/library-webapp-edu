@@ -14,7 +14,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddBookDTO {
-    @NotEmpty(message = "Поле не должно быть пустым.")
     @Size(min = 3, max = 255, message = "В имени должно быть от 3 до 255 символов.")
     private String nameAuthor;
 

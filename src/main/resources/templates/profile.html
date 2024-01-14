@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"><title>Profile</title></head>
+<body class="d-flex flex-column h-100">
+<div th:replace="~{fragments/navbar}">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <main class="jumbotron text-center rounded col-md-12 align-self-center pt-5">
+                <div class="justify-content-center">
+                    <h1>Profile</h1>
+                </div>
+                <div class="row bg-light rounded">
+                    <div class="col-md-6" th:object="${user}">
+                        <h2>User</h2>
+                        <h4 th:text="'Username: ' + *{username}"></h4>
+                        <h4 th:text="'Email: ' + *{email}"></h4>
+                        <b>User Roles: </b>
+                        <div sec:authentication="principal.authorities"></div>
+                        <br>
+                        <h4 sec:authorize="hasAnyAuthority('AUTHOR', 'READER')" th:text="'Книги на руках:'"></h4>
+                        <div sec:authorize="hasAnyAuthority('AUTHOR', 'READER')" th:if="${user.getRentedBooks().isEmpty()}" th:text="${'Все книги возвращены'}"></div>
+                        <div sec:authorize="hasAnyAuthority('AUTHOR', 'READER')" th:if="${!user.getRentedBooks().isEmpty()}"
+                             th:each="c : ${user.getRentedBooks()}"
+                             th:value="${c.title}"
+                             th:text="${c.title} + ' - арендована с: ' + ${c.getReceivedIn()}">Title</div>
+                        <br>
+                    </div>
+                    <div sec:authorize="hasAuthority('READER')" class="col-md-6"><img src="/pic/reader_1.png" height="350px" alt="Изображение читателя"></div>
+                    <div sec:authorize="hasAuthority('AUTHOR')" class="col-md-6"><img src="/pic/authors.png" height="350px" alt="Изображение писателя"></div>
+                    <div sec:authorize="hasAuthority('ADMIN')" class="col-md-6"><img src="/pic/authors_2.png" height="350px" alt="Изображение админа"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

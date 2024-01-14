@@ -28,11 +28,9 @@ logging:
     blog: WARN
 #Server port
 server:
-  port: 5000
+  port: 9595
 
 #cont
 app:
   default:
     pass: secret
-
-

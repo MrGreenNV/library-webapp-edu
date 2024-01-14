@@ -19,7 +19,7 @@ services:
     container_name: db-service
     image: db-service:1.0
     build:
-      context: src/main/resources/db
+      context: src/main/resources_old/db
       dockerfile: Dockerfile
     environment:
       POSTGRES_USER: postgres
